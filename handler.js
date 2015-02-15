@@ -17,7 +17,9 @@ define([
   var TOSTRING_STRING = "[object String]";
   var TOSTRING_ARRAY = "[object Array]";
   var TOSTRING_OBJECT = "[object Object]";
+  var $EVENT = "$event";
   var NAME = "name";
+  var ARGS = "args";
   var TRIGGER = "trigger";
   var PUT = "put";
   var GET = "get";
@@ -44,7 +46,11 @@ define([
 
             case TOSTRING_OBJECT:
               name = settings[NAME];
-              args = [ settings ];
+              args = settings[ARGS];
+
+              if (OBJECT_TOSTRING.call(args) !== TOSTRING_ARRAY) {
+                args = [ args ];
+              }
               break;
 
             default:
@@ -94,10 +100,11 @@ define([
     "putIfNotHas": from(State),
 
     "dom/analytics/trigger": function ($event, type) {
-      this.emit(TRIGGER, type, {
-        "$event": $event,
-        "arguments": ARRAY_SLICE.call(arguments, 2)
-      });
+      var data = {};
+      data[$EVENT] = $event;
+      data[ARGS] = ARRAY_SLICE.call(arguments, 2);
+
+      return this.emit(TRIGGER, type, data);
     }
   });
 });
