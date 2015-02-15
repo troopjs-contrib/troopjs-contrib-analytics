@@ -1,0 +1,22 @@
+{
+  "name": "troopjs-contrib-analytics",
+  "main": "component.js",
+  "description": "TroopJS Contributed Analytics",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules"
+  ],
+  "dependencies": {
+    "troopjs": "^3",
+    "poly": "^0.6",
+    "when": "^3.4",
+    "mu-state": "*"
+  },
+  "devDependencies": {
+    "requirejs": "^2.1"
+  }
+}
