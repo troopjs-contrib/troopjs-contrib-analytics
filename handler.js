@@ -13,16 +13,28 @@ define([
 
   var UNDEFINED;
   var ARRAY_SLICE = Array.prototype.slice;
+  var ARRAY_PUSH = Array.prototype.push;
   var OBJECT_TOSTRING = Object.prototype.toString;
   var TOSTRING_STRING = "[object String]";
   var TOSTRING_ARRAY = "[object Array]";
   var TOSTRING_OBJECT = "[object Object]";
-  var $EVENT = "$event";
   var NAME = "name";
   var ARGS = "args";
   var TRIGGER = "trigger";
   var PUT = "put";
   var GET = "get";
+
+  function _emit(type, scope) {
+    var me = this;
+
+    return function () {
+      var args = [ type, scope ];
+
+      ARRAY_PUSH.apply(args, ARRAY_SLICE.call(arguments));
+
+      return me.emit.apply(me, args);
+    };
+  }
 
   return Component.extend(function ($element, name, trackers) {
     var me = this;
@@ -62,32 +74,26 @@ define([
               localRequire([ name ], resolve, reject);
             })
             .tap(function (Tracker) {
-              var tracker = Tracker.apply(Tracker, args);
-              var _trigger = function (type, data) {
-                return tracker.emit(TRIGGER, me, type, data);
-              };
-              var _put = function (key, value) {
-                return tracker.emit(PUT, me, key, value);
-              };
-              var _get = function (key) {
-                return tracker.emit(GET, me, key);
-              };
+              var _tracker = Tracker.apply(Tracker, args);
+              var _trigger = _emit.call(_tracker, TRIGGER, me);
+              var _put = _emit.call(_tracker, PUT, me);
+              var _get = _emit.call(_tracker, GET, me);
 
-              tracker.on("sig/initialize", function () {
+              _tracker.on("sig/initialize", function () {
                 me.on(PUT, _put);
                 me.on(GET, _get);
                 me.on(TRIGGER, _trigger);
               });
-              tracker.on("sig/finalize", function () {
+              _tracker.on("sig/finalize", function () {
                 me.off(PUT, _put);
                 me.off(GET, _get);
                 me.off(TRIGGER, _trigger);
               });
               me.on("sig/start", function () {
-                return start.call(tracker);
+                return start.call(_tracker);
               });
               me.on("sig/finalize", function () {
-                return finalize.call(tracker);
+                return finalize.call(_tracker);
               });
             });
         });
@@ -100,11 +106,12 @@ define([
     "putIfNotHas": from(State),
 
     "dom/analytics/trigger": function ($event, type) {
-      var data = {};
-      data[$EVENT] = $event;
-      data[ARGS] = ARRAY_SLICE.call(arguments, 2);
+      var me = this;
+      var args = [ TRIGGER ];
 
-      return this.emit(TRIGGER, type, data);
+      ARRAY_PUSH.apply(args, ARRAY_SLICE.call(arguments, 1));
+
+      return me.emit.apply(me, args);
     }
   });
 });
