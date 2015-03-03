@@ -11,6 +11,7 @@ define([
   var TOSTRING_OBJECT = "[object Object]";
   var TOSTRING_UNDEFINED = "[object Undefined]";
   var $ELEMENT = "$element";
+  var RE = /\s+/;
 
   return Component.extend(function ($element, name, triggers) {
     var me = this;
@@ -21,7 +22,7 @@ define([
         return;
 
       case TOSTRING_STRING:
-        _triggers = [ triggers ];
+        _triggers = triggers.split(RE);
         break;
 
       case TOSTRING_OBJECT:

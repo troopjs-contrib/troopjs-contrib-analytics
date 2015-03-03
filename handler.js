@@ -20,6 +20,7 @@ define([
   var TRIGGER = "trigger";
   var PUT = "put";
   var GET = "get";
+  var RE = /\s+/;
 
   function _emit(type, scope) {
     var me = this;
@@ -42,7 +43,7 @@ define([
         return;
 
       case TOSTRING_STRING:
-        _trackers = [ trackers ];
+        _trackers = trackers.split(RE);
         break;
 
       case TOSTRING_OBJECT:
