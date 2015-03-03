@@ -8,7 +8,8 @@
   "ignore": [
     "**/.*",
     "bower_components",
-    "node_modules"
+    "node_modules",
+    "example"
   ],
   "dependencies": {
     "troopjs": "^3",
@@ -17,6 +18,8 @@
     "mu-state": "*"
   },
   "devDependencies": {
-    "requirejs": "^2.1"
+    "requirejs": "^2.1",
+    "jquery": ">=1.8.1 <4",
+    "troopjs-widget": "^1"
   }
 }
