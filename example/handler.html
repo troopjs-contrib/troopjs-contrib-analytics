@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Trigger</title>
+</head>
+<body>
+
+<div data-weave="troopjs-contrib-analytics/handler(trackers)" data-trackers="troopjs-contrib-analytics/example/tracker troopjs-contrib-analytics/example/tracker"></div>
+<div data-weave="troopjs-contrib-analytics/handler(trackers)" data-trackers='[ "troopjs-contrib-analytics/example/tracker", [ "troopjs-contrib-analytics/example/tracker", 1, 2 ] ]'></div>
+<div data-weave="troopjs-contrib-analytics/handler(trackers)" data-trackers='{ "troopjs-contrib-analytics/example/tracker": [ 1, 2 ] }'></div>
+
+<script src="../bower_components/requirejs/require.js" data-main="index.js"></script>
+</body>
+</html>
