@@ -116,7 +116,7 @@ define([
     "has": from(State),
     "putIfNotHas": from(State),
 
-    "dom/analytics/trigger": function ($event, type) {
+    "dom/analytics/trigger": function () {
       var me = this;
       var args = [ TRIGGER ];
 
