@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Simple</title>
+</head>
+<body data-weave="troopjs-contrib-analytics/handler(trackers)" data-trackers="troopjs-contrib-analytics/example/counter">
+
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "click", "one", -1 ]'></button>
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "click", "one", 1 ]'></button>
+<hr />
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "click", "two", -1 ]'></button>
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "click", "two", 1 ]'></button>
+
+<script src="../bower_components/requirejs/require.js" data-main="main.js"></script>
+</body>
+</html>
