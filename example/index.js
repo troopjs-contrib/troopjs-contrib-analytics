@@ -15,10 +15,8 @@ require({
     localRequire([ "troopjs-widget/application" ], function (Application) {
       jQuery(function ($) {
 
-        $("[data-triggers]").each(function (index, element) {
-          var $element = $(element);
-
-          $element.text($element.attr("data-triggers"));
+        $("[data-triggers]").text(function () {
+          return $(this).attr("data-triggers");
         });
 
         Application($("html"), "application").start();
