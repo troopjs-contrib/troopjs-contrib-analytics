@@ -11,8 +11,6 @@ define([
   var TOSTRING_OBJECT = "[object Object]";
   var TOSTRING_UNDEFINED = "[object Undefined]";
   var $ELEMENT = "$element";
-  var NAME = "name";
-  var ARGS = "args";
 
   return Component.extend(function ($element, name, triggers) {
     var me = this;
@@ -30,10 +28,7 @@ define([
         _triggers = Object
           .keys(triggers)
           .map(function (trigger) {
-            var _trigger = {};
-            _trigger[NAME] = trigger;
-            _trigger[ARGS] = triggers[trigger];
-            return _trigger;
+            return [ trigger ].concat(triggers[trigger]);
           });
         break;
 
@@ -59,15 +54,6 @@ define([
           case TOSTRING_ARRAY:
             name = _trigger[0];
             args = _trigger.slice(1);
-            break;
-
-          case TOSTRING_OBJECT:
-            name = _trigger[NAME];
-            args = _trigger[ARGS];
-
-            if (OBJECT_TOSTRING.call(args) !== TOSTRING_ARRAY) {
-              args = [ args ];
-            }
             break;
 
           default:

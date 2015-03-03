@@ -17,8 +17,6 @@ define([
   var TOSTRING_ARRAY = "[object Array]";
   var TOSTRING_OBJECT = "[object Object]";
   var TOSTRING_UNDEFINED = "[object Undefined]";
-  var NAME = "name";
-  var ARGS = "args";
   var TRIGGER = "trigger";
   var PUT = "put";
   var GET = "get";
@@ -51,10 +49,7 @@ define([
         _trackers = Object
           .keys(trackers)
           .map(function (tracker) {
-            var _tracker = {};
-            _tracker[NAME] = tracker;
-            _tracker[ARGS] = trackers[tracker];
-            return _tracker;
+            return [ tracker ].concat(trackers[tracker]);
           });
         break;
 
@@ -80,15 +75,6 @@ define([
           case TOSTRING_ARRAY:
             name = _tracker[0];
             args = _tracker.slice(1);
-            break;
-
-          case TOSTRING_OBJECT:
-            name = _tracker[NAME];
-            args = _tracker[ARGS];
-
-            if (OBJECT_TOSTRING.call(args) !== TOSTRING_ARRAY) {
-              args = [ args ];
-            }
             break;
 
           default:
