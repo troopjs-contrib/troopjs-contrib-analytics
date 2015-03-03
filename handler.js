@@ -55,7 +55,7 @@ define([
         break;
 
       case TOSTRING_ARRAY:
-        _trackers = trackers;
+        _trackers = [ trackers ];
         break;
 
       default:

@@ -34,7 +34,7 @@ define([
         break;
 
       case TOSTRING_ARRAY:
-        _triggers = triggers;
+        _triggers = [ triggers ];
         break;
 
       default:

@@ -7,8 +7,8 @@
 <body data-weave="troopjs-contrib-analytics/handler(trackers)" data-trackers="troopjs-contrib-analytics/example/tracker">
 
 <button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers="event-name-1 event-name-2"></button>
-<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "event-name-1", [ "click", "event-name-2", 1, 2 ] ]'></button>
-<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='{ "click.1": "event-name-1", "click.2": [ "event-name-2", 1, 2 ] }'></button>
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='[ "click", "event-name", 1, 2 ]'></button>
+<button data-weave="troopjs-contrib-analytics/trigger(triggers)" data-triggers='{ "click": [ "event-name", 1, 2 ] }'></button>
 
 <script src="../bower_components/requirejs/require.js" data-main="main.js"></script>
 </body>
