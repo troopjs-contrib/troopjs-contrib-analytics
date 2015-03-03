@@ -11,6 +11,8 @@ define([
   var TOSTRING_OBJECT = "[object Object]";
   var TOSTRING_UNDEFINED = "[object Undefined]";
   var $ELEMENT = "$element";
+  var NAME = "name";
+  var ARGS = "args";
 
   return Component.extend(function ($element, name, triggers) {
     var me = this;
@@ -21,16 +23,21 @@ define([
         return;
 
       case TOSTRING_STRING:
-        _triggers = {};
-        _triggers[ "click" ] = triggers;
-        break;
-
-      case TOSTRING_ARRAY:
-        _triggers = {};
-        _triggers[ triggers[0] ] = triggers.slice(1);
+        _triggers = [ triggers ];
         break;
 
       case TOSTRING_OBJECT:
+        _triggers = Object
+          .keys(triggers)
+          .map(function (trigger) {
+            var _trigger = {};
+            _trigger[NAME] = trigger;
+            _trigger[ARGS] = triggers[trigger];
+            return _trigger;
+          });
+        break;
+
+      case TOSTRING_ARRAY:
         _triggers = triggers;
         break;
 
@@ -39,14 +46,38 @@ define([
     }
 
     me.on("sig/initialize", function () {
-      Object
-        .keys(_triggers)
-        .forEach(function (type) {
+      _triggers.forEach(function (_trigger) {
+        var name;
+        var args;
 
-          me.on("dom/" + type, function () {
-            me[$ELEMENT].trigger("analytics/trigger", _triggers[type]);
-          });
+        switch (OBJECT_TOSTRING.call(_trigger)) {
+          case TOSTRING_STRING:
+            name = "click";
+            args = [ _trigger ];
+            break;
+
+          case TOSTRING_ARRAY:
+            name = _trigger[0];
+            args = _trigger.slice(1);
+            break;
+
+          case TOSTRING_OBJECT:
+            name = _trigger[NAME];
+            args = _trigger[ARGS];
+
+            if (OBJECT_TOSTRING.call(args) !== TOSTRING_ARRAY) {
+              args = [ args ];
+            }
+            break;
+
+          default:
+            throw new Error("'_trigger' is of unsupported type");
+        }
+
+        me.on("dom/" + name, function () {
+          me[$ELEMENT].trigger("analytics/trigger", args);
         });
       });
+    });
   });
 });
