@@ -15,7 +15,7 @@
     "troopjs": "^3",
     "poly": "^0.6",
     "when": "^3.4",
-    "mu-state": "*"
+    "mu-state": "^0"
   },
   "devDependencies": {
     "requirejs": "^2.1",

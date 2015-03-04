@@ -17,10 +17,7 @@ define([ "troopjs-core/component/gadget" ], function (Component) {
       var key = "count." + type;
 
       return handler
-        .putIfNotHas(key, 0)
-        .then(function () {
-          return handler.get(key);
-        })
+        .get(key, 0)
         .tap(function (count) {
           me.log("old", type, count);
         })
@@ -34,7 +31,7 @@ define([ "troopjs-core/component/gadget" ], function (Component) {
           return handler
             .get([ "session", "count" ])
             .spread(function (session, count) {
-              me.log({
+              me.log("all", {
                 "count": count,
                 "session": session
               });
