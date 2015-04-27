@@ -1,9 +1,12 @@
-define([ "troopjs-core/component/gadget" ], function (Component) {
-  return Component.extend(function () {
-    this.log("constructor", arguments);
-  }, {
-    "on/trigger": function (handler, type) {
-      this.log("trigger", arguments);
-    }
-  })
+define([ "troopjs-core/component/emitter" ], function (Component) {
+  return Component.extend(
+    function () {
+      console.log("constructor", arguments);
+    },
+
+    {
+      "on/trigger": function (handler, type) {
+        console.log("trigger", arguments);
+      }
+    });
 });

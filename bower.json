@@ -12,10 +12,10 @@
     "example"
   ],
   "dependencies": {
-    "troopjs": "^3",
-    "poly": "^0.6",
     "when": "^3.4",
-    "mu-state": "^0"
+    "troopjs": "^3",
+    "mu-state": "^1",
+    "mu-error": "^0"
   },
   "devDependencies": {
     "requirejs": "^2.1",
